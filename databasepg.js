@@ -19,4 +19,4 @@ client.query(`Select * from users`,(err,res) => {
     client.end;
 })
 
-module.exports = client
+module.exports = client;
