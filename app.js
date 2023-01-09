@@ -1,16 +1,20 @@
 const express = require('express');
 
+const cors = require('cors');
+
 const bodyParser = require('body-parser');
 
 const HttpError = require('./models/http-error');
 
-const placesRoutees = require('./routes/places-routes');
+const usersRoutees = require('./routes/users-routes');
 
 const app = express();
 
+//middlewares
+app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/api/places',placesRoutees);
+app.use('/users',usersRoutees);
 
 app.use((req,res,next) => {
     const error = new HttpError('Could not find this route',404);
@@ -24,4 +28,6 @@ app.use((error,req,res,next) => {
     res.status(error.code || 500).json({message: error.message || 'Unknown error occured'});
 });
 
-app.listen(8088);
+app.listen(5000, () => {
+    console.log("Server Running on 5000");
+});
